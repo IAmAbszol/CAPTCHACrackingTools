@@ -1,0 +1,1 @@
+export PYTHONPATH="$PYTHONPATH:$PWD:$PWD/utils:$PWD/benchmarking:$PWD/benchmarking/object_detection"
