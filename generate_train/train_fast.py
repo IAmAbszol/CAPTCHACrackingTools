@@ -1,5 +1,5 @@
 '''
-	train.py
+	train_fast.py
 	A live attempt at training small batches,
 	exporting the model, and retrain based
 	on new data generated.
@@ -37,6 +37,14 @@ class Generate:
 		self.Characters = helper.training_characters
 		self.Fonts = ["fonts/{}".format(i) for i in os.listdir(args['fonts']) if ".ttf" in i.lower() or ".otf" in i.lower()]
 
+	"""
+		The following are constants when it comes to input --> output, processing is different.
+		If you build or place in your own module that you want to be trained upon,
+		append or change generate_batch -> captcha_choices.
+		
+		The return of the function must be of the image and a list of offsets being delta x within
+		the image. View modify_*.py to understand how I hacked the module to fit my needs.
+	"""
 	def generate_claptcha(self, word, length):
 		# Claptcha captcha storage
 		c = Claptcha(word, "{}".format(self.Fonts[random.randint(0, (len(self.Fonts))-1)]), resample=Image.BICUBIC, noise=(random.randint(0, 4) / 10))
