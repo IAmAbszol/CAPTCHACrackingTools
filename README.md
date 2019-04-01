@@ -91,11 +91,11 @@ Before March, a Python script was setup to rip CAPTCHAs off a specified website.
 ### Other
 ----
 
-####Changing characters
+#### Changing characters
 The **utils/** directory located in the root of the repository contains a script *helper.py* which assists in certain training aspects of the model. Within this script there contains a set of characters to be used in the training and evaluation of our model, keeps this constant during the whole training and evaluation process.
 
 `training_characters = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '@', '#', '$','%', '^', '&', '*']
 `
 
-####Peak segmentation framework
+#### Peak segmentation framework
 The framework was the first attempt at segmenting the characters and has since been deprecated and serves as a baseline for comparison of the success of the TOD segmentation framework.
