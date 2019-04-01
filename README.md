@@ -1,6 +1,6 @@
-###Low-Cost to Crack Python CAPTCHA Libraries
+### Low-Cost to Crack Python CAPTCHA Libraries
 
-####Description
+#### Description
 -----
 The code layout contained within the root of this directory is separated into three distinct parts.
 - **benchmarking** - This directory serves as the local and external benchmarking tests to be used to test our segmentation and recognition model.
@@ -9,20 +9,20 @@ The code layout contained within the root of this directory is separated into th
 
 Overall, the integrity of this project was to illustrate how using Python CAPTCHA libraries to train a CNN model relatively quick and with conjunction of other modules, crack external CAPTCHA imagery.
 
-####Environment
+#### Environment
 -----
 - Operating System(s): Windows 10 x64, Ubuntu 16.04 amd64
 - Video Card(s): Nvidia GTX 1070 8GB
 - RAM: 16GB
 - Anaconda Virtual Environment for Python codebase execution
 
-####Dependencies
+#### Dependencies
 -----
 - Python Version **3.6.8**
 - **requirements.txt** satisfies package dependencies
 - **Optional** - We highly recommend that [CUDA](https://developer.nvidia.com/cuda-zone) is installed on any compatible machine. To install CUDA, follow this [tutorial](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html).
 
-###Building the Model
+### Building the Model
 ----
 ####Setup
 Begin the setup process by opening Anaconda Virtual Environment, if your on a Linux system then odds are your Anaconda installation has been exported to your current bash session. If not, then a launcher should be readily available (This is the case on Windows machines).
@@ -50,7 +50,7 @@ Upon every activation of your Anaconda Virtual Environment, the respective run f
 
 `$ source run.src`
 
-####Generating & Training the Model
+#### Generating & Training the Model
 Navigate to the **generate_train/** directory within the root of the repository, here there are two files to assist with either building the segmentation framework data or to train our recognition model.
 
 ***Data generation for the segmentation model***
@@ -67,7 +67,7 @@ This part of the process doesnt require external CSV files being generated, rath
 
 `$ python generate_train.py -b 8192 -g 5 -f fonts/`
 
-###Benchmarking our model
+### Benchmarking our model
 ----
 After generating our recognition model, we must first install the segmentation model framework into our benchmarking directory. This file may be found on our [Releases Page](https://github.com/IAmAbszol/CAPTCHACrackingTools/releases) on this GitHub repository. Instructions are provided but in short, make sure the **inference_graph/** directory is placed within the root of the **benchmarking/** directory.
 
@@ -75,20 +75,20 @@ Place the generated **models/** directory inside the root of the benchmarking di
 
 Finally we have two files inside this directory to assist in benchmarking your newly created model.
 
-####Benchmarking locally
+#### Benchmarking locally
 This benchmark focuses on the CAPTCHA we created and testing our TOD framework against our Peak Segmentation framework.
 
 `$ python local_benchmark.py`
 
 The resulting output provides detailed information and imagery to understand where our model faults.
 
-####Benchmarking externally
+#### Benchmarking externally
 Before March, a Python script was setup to rip CAPTCHAs off a specified website. They have since updated their site to reCAPTCHA v3 whose CAPTCHA may not be ripped. The resulting directory is of numerous samples taken from the site.
 
 `$ python external_benchmark.py`
 
 
-###Other
+### Other
 ----
 
 ####Changing characters
