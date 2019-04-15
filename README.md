@@ -24,7 +24,7 @@ Overall, the integrity of this project was to illustrate how using Python CAPTCH
 
 ### Building the Model
 ----
-####Setup
+#### Setup
 Begin the setup process by opening Anaconda Virtual Environment, if your on a Linux system then odds are your Anaconda installation has been exported to your current bash session. If not, then a launcher should be readily available (This is the case on Windows machines).
 
 ***Environment Setup***
