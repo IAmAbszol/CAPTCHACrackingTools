@@ -52,7 +52,7 @@ class Generate:
 		
 			if s % 100 == 0:
 				print("Thread{} : Completed {}/{} - {}.".format(self.Thread, s, int(set_size), (datetime.datetime.now() - start)))
-			word = ''.join([self.Characters[random.randrange(0, len(self.Characters))] for i in range(random.randint(1, int(length)))])
+			word = ''.join([str(self.Characters[random.randrange(0, len(self.Characters))]) for i in range(random.randint(1, int(length)))])
 			
 			# Claptcha captcha storage
 			c = Claptcha(word, "{}".format(self.Fonts[random.randint(0, (len(self.Fonts))-1)]), resample=Image.BICUBIC, noise=(random.randint(0, 4) / 10))

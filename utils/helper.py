@@ -4,12 +4,14 @@ import numpy as np
 from sklearn import preprocessing
 from PIL import Image
 
-training_characters = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '@', '#', '$','%', '^', '&', '*']
+#training_characters = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '@', '#', '$','%', '^', '&', '*']
 #training_characters = training_characters[:24]
+training_characters = ['0','1','2','3','4','5','6','7','8','9']
 
 # Optimization could be done and reduce to ~O(n) with varying checks
-def peak_segmentation(image, threshold=3):
-# Segment the image through use of vertical bars
+def peak_segmentation(image, threshold=5):
+	
+	# Segment the image through use of vertical bars
 	np_image = np.array(image.convert('L'))
 	np_image = np_image.astype('float32')
 	np_image /= 255
@@ -26,7 +28,7 @@ def peak_segmentation(image, threshold=3):
 	# Preprocess the y-axis, it'll distintively show character cloud clusters.
 	X = np.array([i for i in range(len(np_image[0]))])
 	y = preprocessing.scale(np.array(segment_columns))
-
+	
 	# Remove borders of the known starting and ending characters
 	for i in range(len(y)):
 		if y[i] <= 0:
@@ -41,15 +43,14 @@ def peak_segmentation(image, threshold=3):
 
 	# Sum all values less than 0 and gain an average.
 	# Then remove all values less than the average (avg --> -inf)
-	avg = 0
-	total = 0
-	for i in y:
-		if i <= 0:
-			avg += i
-			total += 1
-	avg /= total
+	avg = 1
+	#total = 0
+	#for i in y:
+	#	if i <= 0:
+	#		avg += i
+	#		total += 1
+	#avg /= total
 	y = [i if i >= avg else 0 for i in y]
-
 
 	# Finally iterate through the y-axis
 	# Every value > 0 will be our character, hence
@@ -72,9 +73,29 @@ def peak_segmentation(image, threshold=3):
 				character_indices.append((start, index))
 				count = 0
 
+	#print(character_indices)
+	#from matplotlib import pyplot as plt
+	#plt.bar(X, y)
+	#plt.show()
+	
 	return character_indices
 	
 
+# Have reconstruct instead look at the end and starting indicies of two respective
+# points whom are neighbors to one another. Find the smallest gap, combine, then re-iterate over
+# till desired is reached
+def combine_ends(character_indices, correct_size):
+	while len(character_indices) > correct_size:
+		idx, minimum = 0, sys.maxsize
+		for i in range(1, len(character_indices)):
+			if character_indices[i][0] - character_indices[i - 1][1] < minimum:
+				minimum = character_indices[i][0] - character_indices[i - 1][1]
+				idx = i
+		# Remove and get the character_indices tuple
+		val = character_indices.pop(idx)
+		character_indices[idx - 1] = (character_indices[idx - 1][0], val[1])
+	return character_indices
+	
 def reconstruct(character_indices, correct_size):
 	"""
 		Compresses smallest to highest indicies

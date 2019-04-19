@@ -72,8 +72,8 @@ class Generate:
 		image_labels = []
 		image_list = []
 		text_list = []
-		#captcha_choices = [self.generate_claptcha, self.generate_captcha]
-		captcha_choices = [self.generate_captcha, self.generate_claptcha]
+		captcha_choices = [self.generate_claptcha]
+		#captcha_choices = [self.generate_captcha, self.generate_claptcha]
 		batch = 0
 		choice = 0
 		while batch < int(batch_size):
@@ -82,7 +82,7 @@ class Generate:
 			if batch != 0 and batch % int(batch_size / 10) == 0:
 				print("generate_batch: Completed {}/{} - {}.".format(batch, batch_size, (datetime.datetime.now() - start)))
 
-			word = ''.join([self.Characters[random.randrange(0, len(self.Characters))] for i in range(int(length))])
+			word = ''.join([str(self.Characters[random.randrange(0, len(self.Characters))]) for i in range(int(length))])
 
 			image, offsets = captcha_choices[choice](word, length)
 
