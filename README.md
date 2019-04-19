@@ -85,7 +85,7 @@ The resulting output provides detailed information and imagery to understand whe
 #### Benchmarking externally
 Before March, a Python script was setup to rip CAPTCHAs off a specified website. They have since updated their site to reCAPTCHA v3 whose CAPTCHA may not be ripped. The resulting directory is of numerous samples taken from the site.
 
-`$ python external_benchmark.py`
+`$ python external_benchmark.py --data EXTERNAL_CSV`
 
 
 ### Other

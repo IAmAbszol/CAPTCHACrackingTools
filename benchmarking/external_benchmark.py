@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import keras
+import argparse
 import datetime
 import time
 
@@ -25,8 +26,12 @@ from matplotlib import pyplot as plt
 
 from utils import helper
 
+parser = argparse.ArgmentParser(description="CSV to run the external benchmark on.")
+parser.add_argument('-d', '--data', required=True, help='CSV location for external benchmark.')
+args = vars(parser.parse_args())
+
 # Load local data
-dataframe = pd.read_csv('captchas.csv', sep=',')
+dataframe = pd.read_csv(str(args['data']), sep=',')
 labels = [l for l in dataframe['label']]
 images = [Image.open(f) for f in dataframe['image']]
 data = list(zip(images, labels))
