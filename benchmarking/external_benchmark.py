@@ -26,7 +26,7 @@ from matplotlib import pyplot as plt
 
 from utils import helper
 
-parser = argparse.ArgmentParser(description="CSV to run the external benchmark on.")
+parser = argparse.ArgumentParser(description="CSV to run the external benchmark on.")
 parser.add_argument('-d', '--data', required=True, help='CSV location for external benchmark.')
 args = vars(parser.parse_args())
 
@@ -105,6 +105,7 @@ character_data = [(0,0) for i in range(len(helper.training_characters))]
 
 for idx, (image, label) in enumerate(data):
 
+	label = str(label)
 	guess = []
 
 	# Convert image to cv2 (numpy array)
@@ -131,18 +132,11 @@ for idx, (image, label) in enumerate(data):
 
 	# Sort list from least to greatest X
 	coordinates.sort(key=lambda tp: tp[0])
-
-	coordinates = reduced_x_axis = helper.reconstruct(coordinates, 6)
-	if coordinates == -1:
-		bad_guess +=1 
-		continue
 	
 	for xmin, ymin, xmax, ymax in coordinates:
 		sub_image = image.crop((xmin, ymin, xmax, ymax))
 		sub_image = sub_image.convert('L')
 		
-		# Peak segment them
-		revised_ind = helper.peak_segmentation(sub_image)
 		np_image = np.array(sub_image.resize((28, 34), Image.ANTIALIAS))
 		np_image = np_image.reshape(1, 28, 34, 1)
 		np_image = np_image.astype('float32')
